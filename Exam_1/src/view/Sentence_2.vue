@@ -9,7 +9,7 @@ const area = computed(() => {
 </script>
 
 <template>
-  <div class="max-w-screen-sm mx-auto">
+  <div class="max-w-screen-sm mx-auto  min-h-screen">
     <h1 class="text-2xl font-bold mb-4 text-center">Tính Diện Tích Hình Vuông</h1>
     <label for="sideLength" class="block mb-2">Chiều dài cạnh (cm):</label>
     <input

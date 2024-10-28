@@ -17,7 +17,7 @@ const fontSize = ref(16)
         placeholder="Nhập kích thước chữ"
     />
     <div class="mt-4">
-      <p :style="{fontSize: fontSize + 'px'}" class="text-center my-[150px]">Text</p>
+      <p :style="{fontSize: fontSize + 'px'}" class="text-center my-[150px]">HeHe</p>
     </div>
   </div>
 </template>

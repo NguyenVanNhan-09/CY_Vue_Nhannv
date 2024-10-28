@@ -30,7 +30,7 @@
 
 <template>
   <div class="flex justify-center items-center min-h-screen">
-    <a   :href="data.productLink" class="max-w-[720px] mx-auto">
+    <a :href="data.productLink" class="max-w-[720px] mx-auto">
       <div class="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
         <div class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-96">
           <img
