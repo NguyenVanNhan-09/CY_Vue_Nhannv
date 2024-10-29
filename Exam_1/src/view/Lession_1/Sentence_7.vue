@@ -20,7 +20,7 @@ import {computed, ref, watch} from "vue";
   })
 
   watch(form, (newVal) => {
-    const valid = Object.values(newVal).every((value) => value.trim()!== '');
+    const valid = Object.values(newVal).every((value) => value.length !== "");
     formComplete.value = valid;
   }, {deep: true})
 
