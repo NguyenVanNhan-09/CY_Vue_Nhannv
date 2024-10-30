@@ -15,6 +15,10 @@
                     class="animate-bounce focus:animate-none hover:animate-none inline-flex text-md font-medium bg-indigo-900 mt-3 px-4 py-2 rounded-lg tracking-wide text-white">
           <span class="ml-2">Lession 2</span>
         </RouterLink>
+        <RouterLink to="ls3/sentence1"
+                    class="animate-bounce focus:animate-none hover:animate-none inline-flex text-md font-medium bg-indigo-900 mt-3 px-4 py-2 rounded-lg tracking-wide text-white">
+          <span class="ml-2">Lession 3</span>
+        </RouterLink>
       </div>
     </div>
   </div>
