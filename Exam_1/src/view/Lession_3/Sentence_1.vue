@@ -42,7 +42,7 @@ const data = ref([
     "colorVariants": [
       {
         color: "#446b5f",
-        quantity: 5,
+        quantity: 3,
         image: "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/a9b83f5c-af29-49b5-a784-989974e9c531/AIR+FORCE+1+%2707+LV8+1.png"
       },
       {
@@ -119,7 +119,7 @@ const data = ref([
     "colorVariants": [
       {
         color: "#202020",
-        quantity: 3,
+        quantity: 0,
         image: "https://balenciaga.dam.kering.com/m/41604a673d4fb1ce/Medium-772767WRUNG9010_F.jpg?v=1"
       },
     ]
@@ -155,27 +155,48 @@ function formatDate(dateString) {
 }
 
 // Chọn màu
-const handleSelectColor = (colorVariant) => {
+const handleSelectColor = (colorVariant, productId) => {
   selectColor.value = colorVariant;
+  changeImage(productId, colorVariant.image)
 }
 
-// add to cart
 function addToCart(product) {
   const defaultColor = product.colorVariants[0];
   const selectedColor = selectColor.value || defaultColor;
   // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
   const productInCart = cart.value.find(item => item.id === product.id && item.color === selectedColor.color);
-  if (productInCart) {
-    productInCart.quantity++;
+  // Tìm sản phẩm trong data để lấy số lượng
+  const qtyProductData = data.value.find(item => item.id === product.id);
+  const selectedColorVariant = qtyProductData?.colorVariants.find(item => item.color === selectedColor.color);
+
+  if (selectedColorVariant && selectedColorVariant.quantity > 0) {
+    if (productInCart) {
+      productInCart.quantity++;
+      selectedColorVariant.quantity--;
+    } else {
+      cart.value.push({
+        ...product,
+        quantity: 1,
+        color: selectedColor.color,
+        colorImage: selectedColor.image,
+      });
+      selectedColorVariant.quantity--;
+    }
+
+    toast(`add to cart success!!!`, {
+      "type": 'success',
+      "position": "top-left",
+      "dangerouslyHTMLString": true,
+    });
   } else {
-    cart.value.push({...product, quantity: 1, color: selectedColor.color, colorImage: selectedColor.image});
+    toast(`Out of stock!`, {
+      "type": 'warning',
+      "position": "top-left",
+      "dangerouslyHTMLString": true,
+    });
   }
-  toast(`add to cart!`, {
-    "type": 'success',
-    "position": "top-left",
-    "dangerouslyHTMLString": true
-  })
 }
+
 
 const totalCartProduct = computed(() => {
   return cart.value.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -255,8 +276,7 @@ const totalCart = computed(() => {
                       'border-2 border-gray-900': selectColor && selectColor.color === colorVariant.color
                   }"
                   @mouseover="changeImage(product.id, colorVariant.image)"
-                  @mouseleave="resetImage(product.id, product.image)"
-                  @click="handleSelectColor(colorVariant)"
+                  @click="handleSelectColor(colorVariant, product.id)"
                   class="p-3 rounded-full shadow-2xl"
               >
               </button>
