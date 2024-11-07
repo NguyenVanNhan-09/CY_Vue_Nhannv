@@ -1,9 +1,21 @@
 import axios from "axios"
-const instance = axios.create({
-    baseURL: "http//localhost:3000",
-    headers: {
-        "Content-type": "application/json"
-    }
+
+export const axiosInstance = axios.create({
+    baseURL: "http://api.example.com",
+    timeout: 5000,
 })
 
-export default instance
+axios.interceptors.request.use(function (config) {
+        NProgress.start();
+        return config;
+    }, function (error) {
+        return Promise.reject(error);
+    }
+)
+
+axios.interceptors.response.use(function (response) {
+    NProgress.done()
+    return response;
+}, function (error) {
+    return Promise.reject(error);
+})
